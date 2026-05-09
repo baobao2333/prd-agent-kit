@@ -1,13 +1,13 @@
 ---
 name: prd-09-prd-compressor
-description: Compress all PRD stage artifacts into a concise review-ready PRD for engineering, design, QA, and operations. Use at the end of the PRD workflow or when an AI-generated PRD is too long, vague, or mixed. Do not use to invent new requirements.
+description: Compress all PRD stage artifacts into a concise final review document for engineering, design, QA, and operations. It may be review-ready, decision-review, or not-ready depending on unresolved gates. Use at the end of the PRD workflow or when an AI-generated PRD is too long, vague, or mixed. Do not use to invent new requirements.
 ---
 
 # PRD Compressor
 
 ## Purpose
 
-Turn stage artifacts into a final PRD that is short enough to review and precise enough to execute.
+Turn stage artifacts into a final PRD document that is short enough to review and honest about whether it is precise enough to execute.
 
 This skill must compress, not expand.
 
@@ -34,6 +34,33 @@ This skill must compress, not expand.
 8. Do not convert unresolved `Decision needed`, `Rule gap`, or `Needs history check` items into final decisions.
 9. If blocking decisions remain, mark the PRD as not review-ready and list the exact owner or confirmation needed.
 
+## Readiness gate
+
+Set one explicit status before writing the final document:
+
+| Status | Use when | Required behavior |
+|---|---|---|
+| `Review-ready` | No blocking product, data, technical, legal, cost, rule, or acceptance gaps remain | Compress into an execution-ready PRD |
+| `Decision-review` | The document is useful for stakeholder review, but at least one decision blocks estimation or QA | Lead with the blocking decisions and do not imply development can start |
+| `Needs technical confirmation` | Product direction is stable, but architecture, data, logging, cost, compatibility, or integration facts are unconfirmed | Lead with confirmation questions and owners |
+| `Not ready` | Scope, rules, success criteria, or responsibility boundaries are unstable | Do not compress into an execution PRD; summarize what must be resolved first |
+
+The filename may remain `08-review-ready-prd.md` for compatibility, but the document title and conclusion must use the actual status. Never let the filename override the readiness status.
+
+## Dialectical compression
+
+For every major recommendation, preserve the strongest credible alternative when the source artifacts contain unresolved choices. Do not collapse options into one preferred path unless a stage artifact records the decision.
+
+Before finalizing, run this challenge pass:
+
+1. Which recommendation could be wrong?
+2. Which team would be forced to decide later if this stays vague?
+3. Which metric or acceptance case is not directly observable?
+4. Which admin or operations item exists only because it is convenient?
+5. Which earlier artifact must be updated if this gap changes behavior?
+
+If any answer exposes a blocking gap, mark it in `## 10. Risks and decisions` and set the readiness status accordingly.
+
 ## Forbidden phrases unless immediately defined
 
 - “提升用户体验”
@@ -54,11 +81,14 @@ This skill must compress, not expand.
 ## 0. Review conclusion
 | Item | Conclusion |
 |---|---|
+| Readiness status | Review-ready / Decision-review / Needs technical confirmation / Not ready |
 | Version goal |  |
 | This version does |  |
 | This version does not do |  |
 | Biggest decision needed |  |
 | Biggest risk |  |
+| Can engineering estimate? | Yes / No, blocked by ... |
+| Can QA write executable cases? | Yes / No, blocked by ... |
 
 ## 1. Background and problem
 {Short, concrete problem statement}
@@ -125,9 +155,10 @@ This skill must compress, not expand.
 
 The final PRD is done when:
 
-- Engineering can estimate without guessing intent.
+- The readiness status is explicit and consistent with unresolved decisions.
+- Engineering can estimate without guessing intent, or blockers are clearly labeled as blocking estimation.
 - Design knows what information and states must be represented.
-- QA can write test cases.
+- QA can write test cases, or vague acceptance criteria are clearly labeled as blocking QA.
 - Operations knows what it can and cannot control.
 - PM can see every remaining sign-off item.
 - The document no longer sounds like AI generated expansion.

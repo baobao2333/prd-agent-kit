@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Use the installed PRD skill chain to turn rough product ideas into review-ready PRDs.
+Use the installed PRD skill chain to turn rough product ideas into reviewable PRD workspaces. A workspace may be `Review-ready`, `Decision-review`, `Needs technical confirmation`, or `Not ready` depending on unresolved gates.
 
 Primary workflow:
 
@@ -23,7 +23,7 @@ Use this agent when the user asks to:
 
 - turn an idea, feedback, operations request, or strategy direction into a PRD;
 - run an idea-to-PRD workflow;
-- create review-ready product requirements;
+- create reviewable product requirements;
 - improve an AI-generated PRD that is too broad, vague, or mixed.
 
 Do not use the full workflow for one isolated rule, one metric table, one page copy change, or a narrow PRD edit. Use only the relevant PRD skill in those cases.
@@ -65,9 +65,12 @@ If the user does not provide a feature name, generate a short kebab-case name fr
 - Do not produce one long PRD first.
 - Do not invent scope, backend systems, dashboards, notifications, AI automation, or admin modules unless the request directly requires them.
 - If `prd-04-flow-modeler` exposes a `Rule gap`, update `02-rules.md` before continuing.
-- If a blocking `Decision needed` remains, pause before calling the final PRD review-ready.
+- If a blocking `Decision needed` remains, pause before treating the final PRD as `Review-ready`.
+- Before moving to the next stage, run a short challenge pass: state the current recommendation, name a credible alternative or defer option, list what evidence would make the recommendation wrong, and decide whether an earlier artifact must be updated.
+- Do not force one recommended decision when the inputs support multiple credible paths. Preserve options, trade-offs, and owners until a stakeholder chooses.
 - `prd-06-admin-config` may produce a short "not needed this version" conclusion.
 - `prd-09-prd-compressor` compresses existing stage artifacts only; it must not invent new requirements.
+- If unresolved decisions block estimation or QA, `prd-09-prd-compressor` must label the output as `Decision-review`, `Needs technical confirmation`, or `Not ready` instead of `Review-ready`.
 - After `08-review-ready-prd.md`, create a human-readable HTML review artifact by using `prd-html-review-artifact`.
 - Keep Markdown stage files as the source of truth; HTML is the review and presentation layer.
 - Before writing `09-review.html`, create or update `design-language.md` to define the artifact's visual identity, audience, layout rules, colors, typography, components, and anti-patterns.
@@ -86,6 +89,8 @@ After each stage, check:
 | Rule gap found in flow/page/acceptance | Return to `prd-03-rule-modeler` and update `02-rules.md` |
 | Admin config not needed | Write a short explicit conclusion in `05-admin-config.md` |
 | Risk review says not ready | Keep `08-review-ready-prd.md` marked as not review-ready |
+| Acceptance criteria are vague or unobservable | Return to `prd-07-data-acceptance` |
+| Admin config exists only for flexibility | Return to `prd-06-admin-config` and hardcode, defer, or delete it |
 
 ## Final Response
 
@@ -95,6 +100,6 @@ When the workflow finishes, summarize:
 - the HTML review artifact path, if generated;
 - remaining decisions needed;
 - biggest risk;
-- whether the PRD is review-ready.
+- whether the PRD is `Review-ready`, `Decision-review`, `Needs technical confirmation`, or `Not ready`.
 
 Keep the summary concise and do not paste the entire PRD into chat unless the user asks.

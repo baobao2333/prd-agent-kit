@@ -68,7 +68,7 @@ Source note
 The first viewport should answer:
 
 - What is this PRD about?
-- Is it review-ready?
+- What readiness status does it have: `Review-ready`, `Decision-review`, `Needs technical confirmation`, or `Not ready`?
 - What is the biggest decision needed?
 - What is the biggest risk?
 
@@ -86,6 +86,7 @@ Use interaction only when it improves review:
 
 - Do not invent new PRD decisions, metrics, customers, screenshots, business claims, or implementation facts.
 - Preserve `Decision needed`, `Risk`, `Needs history check`, and `Blocking` status.
+- Preserve the readiness status from `08-review-ready-prd.md`; do not make a `Decision-review`, `Needs technical confirmation`, or `Not ready` artifact look launch-ready.
 - Use concise labels and cards to expose uncertainty instead of hiding it in prose.
 - Keep PRD source Markdown authoritative; HTML is a reading and review layer.
 

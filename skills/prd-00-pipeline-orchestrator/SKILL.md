@@ -1,13 +1,13 @@
 ---
 name: prd-00-pipeline-orchestrator
-description: Orchestrate a product idea into a review-ready PRD by running the PRD skills in order. Use when the user asks to run the full idea-to-PRD workflow, create a PRD from a rough idea, or coordinate multiple PRD drafting stages. Do not use for editing one isolated rule, one page, or one metric table.
+description: Orchestrate a product idea into a reviewable PRD workspace by running the PRD skills with stage gates and feedback loops. Use when the user asks to run the full idea-to-PRD workflow, create a PRD from a rough idea, or coordinate multiple PRD drafting stages. Do not use for editing one isolated rule, one page, or one metric table.
 ---
 
 # PRD Pipeline Orchestrator
 
 ## Purpose
 
-Coordinate the full workflow from rough idea to business-usable PRD. This skill does not write every detail itself. It decides which PRD sub-skills should be used, in what order, and what artifact each stage must produce.
+Coordinate the full workflow from rough idea to business-usable PRD workspace. This skill does not write every detail itself. It decides which PRD sub-skills should be used, in what order, what artifact each stage must produce, and when a later stage must send work back for revision.
 
 The core principle:
 
@@ -36,8 +36,30 @@ Accept any of the following:
 8. Ask at most 3 blocking questions per stage. Continue with explicit assumptions for non-blocking unknowns.
 9. Each stage should create or update only its own stage artifact. Do not merge all details into the final PRD early.
 10. If a later stage exposes a `Rule gap`, return to the relevant earlier artifact and update it before continuing.
-11. If a stage has unresolved blocking `Decision needed` items, pause before treating the next artifact as review-ready.
+11. If a stage has unresolved blocking `Decision needed` items, pause before treating the next artifact as `Review-ready`.
 12. `prd-06-admin-config` may conclude that no admin or operations config is needed for this version. Do not invent admin requirements.
+
+## Dialectical loop
+
+Before moving from one stage to the next, run a short challenge pass:
+
+1. State the current leading recommendation.
+2. Name at least one credible alternative or "do nothing / defer" option.
+3. List what evidence would make the recommendation wrong.
+4. Check whether the next stage depends on an unresolved product, data, legal, cost, or architecture decision.
+5. If the missing decision changes scope, rules, flow, acceptance, or operations, update the earlier artifact first instead of carrying the gap forward.
+
+Do not force a single preferred decision when the inputs do not support one. Preserve competing options with trade-offs and owners until the user or stakeholder chooses.
+
+## Stage gates
+
+| Gate | If true | Action |
+|---|---|---|
+| Blocking `Decision needed` remains | The next artifact would imply a product choice | Stop and ask for the decision, or mark the workspace as `Needs product decision` if the user wants a review artifact |
+| `Rule gap` appears in flow, page, data, or risk review | Existing rules cannot explain the behavior | Return to `prd-03-rule-modeler` and update `02-rules.md` |
+| Acceptance criteria contain vague results such as "may", "significant", or "baseline" without a numeric or observable definition | QA cannot verify the case | Return to `prd-07-data-acceptance` before final compression |
+| Admin config exists only because it is convenient, not necessary | Operations scope is expanding | Return to `prd-06-admin-config` and move it to hardcoded or later |
+| Risk review status is `Needs product decision`, `Needs technical confirmation`, or `Not ready` | The final PRD cannot be called ready | Generate a decision-review PRD, not a review-ready PRD |
 
 ## Recommended stage order
 
@@ -51,7 +73,7 @@ Run these skills in order unless the user explicitly narrows the task:
 6. `prd-06-admin-config` — identify necessary backend / operations controls only.
 7. `prd-07-data-acceptance` — define metrics, event tracking, and acceptance tests.
 8. `prd-08-risk-debt-review` — review historical debt, compatibility, abuse, cost, and responsibility risks.
-9. `prd-09-prd-compressor` — compress all stage artifacts into a review-ready PRD.
+9. `prd-09-prd-compressor` — compress all stage artifacts into either a review-ready PRD or a decision-review PRD, depending on unresolved gates.
 
 ## Output format
 
@@ -80,6 +102,8 @@ The workflow is complete when:
 - Core rules are expressed as conditions, states, thresholds, and outcomes.
 - Major exceptions are covered.
 - Unknowns are not hidden.
-- A developer can estimate the work without guessing product intent.
-- A tester can write cases from the acceptance section.
+- A developer can estimate the work without guessing product intent, or the document clearly says which decisions block estimation.
+- A tester can write cases from the acceptance section, or the document clearly says which vague criteria block QA.
 - The product manager can see what they must sign off on.
+
+If these conditions are not met, the workflow may still produce a useful review artifact, but it must be labeled `Needs product decision`, `Needs technical confirmation`, or `Not ready` instead of `Review-ready`.

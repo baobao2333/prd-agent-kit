@@ -32,6 +32,8 @@ Make the PRD measurable and testable. This skill defines what “done” means f
 - If a metric does not affect a decision, remove it.
 - Define denominator and time window where relevant.
 - Separate product outcome metrics from system health and risk metrics.
+- Do not use vague alert triggers such as "significant decline", "above baseline", or "business limit" unless the baseline, threshold, owner, and observation window are defined.
+- If the threshold is unknown, mark it as `Decision needed` or `Needs data confirmation` and explain whether it blocks launch, QA, or only later optimization.
 
 ## Acceptance rules
 
@@ -39,6 +41,20 @@ Make the PRD measurable and testable. This skill defines what “done” means f
 - Include edge cases from the rule and flow models.
 - Each case must have precondition, action, and expected result.
 - Do not write implementation-specific test steps unless the user provided implementation constraints.
+- Expected results must be directly observable through UI state, product state, logs, events, or admin state.
+- Avoid soft outcomes such as "may show", "possibly", "improves", "works normally", or "does not affect users" unless they are converted into observable criteria.
+- If a valid outcome is probabilistic because ranking, recommendation, or experimentation is involved, split the case into observable checkpoints such as candidate generated, candidate admitted to ranking, constraint rejected, exposure logged, or fallback used.
+- If QA cannot execute a case without a missing rule or threshold, mark the case as `Blocked` and send the gap back to the rule, boundary, or data stage instead of hiding it in acceptance.
+
+## Challenge pass
+
+Before handing off to risk review:
+
+1. Pick the most important success metric and name a scenario where it could improve while the product still gets worse.
+2. Pick the most important guardrail and define what evidence would force rollback.
+3. Check whether every P0 acceptance case has an observable expected result.
+4. Check whether every alert trigger has a threshold, comparison baseline, owner, and time window.
+5. If any P0 case is blocked, update `02-rules.md`, `03-flows.md`, or this artifact before continuing.
 
 ## Output format
 
@@ -58,8 +74,8 @@ Make the PRD measurable and testable. This skill defines what “done” means f
 |---|---|---|---|---|
 
 ## 4. Acceptance criteria
-| Case ID | Scenario | Precondition | Action | Expected result | Priority |
-|---|---|---|---|---|---|
+| Case ID | Scenario | Precondition | Action | Expected result | Observable by | Priority | Status |
+|---|---|---|---|---|---|---|---|
 
 ## 5. Data confirmation needed
 | Item | Why uncertain | Who confirms |
@@ -72,3 +88,5 @@ Recommended next skill: `prd-08-risk-debt-review`
 ## Definition of done
 
 This stage is complete when QA can write test cases and the product manager can explain how launch success will be judged.
+
+If QA cannot execute P0 cases because thresholds, logs, events, or product outcomes are missing, the stage is not complete. Mark the blocker and loop back instead of advancing.
