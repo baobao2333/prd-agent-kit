@@ -2,6 +2,8 @@
 
 这套 PRD 工作流把“写 PRD”拆成多个阶段，让每个阶段都有清楚的职责，并在发现缺口时回到对应阶段修正，最终产出可交付 PRD。
 
+每份交付级 PRD 都应该包含连续的功能行为描述。表格负责定义规则和证据，但读者应该先通过文字理解核心功能如何工作。
+
 ## 阶段列表
 
 | 阶段 | Skill | 输出 |
@@ -9,7 +11,7 @@
 | 00 | `prd-00-pipeline-orchestrator` | 协调整个流程 |
 | 01 | `prd-01-idea-intake` | `00-intake.md` |
 | 02 | `prd-02-business-boundary` | `01-boundary.md` |
-| 03 | `prd-03-rule-modeler` | `02-rules.md` |
+| 03 | `prd-03-rule-modeler` | `02-rules.md`，包含功能规则叙述 |
 | 04 | `prd-04-flow-modeler` | `03-flows.md` |
 | 05 | `prd-05-page-interaction` | `04-pages.md` |
 | 06 | `prd-06-admin-config` | `05-admin-config.md` |

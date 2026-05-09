@@ -2,6 +2,8 @@
 
 The PRD workflow is staged so each artifact has a clear job and can be corrected before the final delivery PRD is produced.
 
+Every delivery PRD should include a prose feature behavior section. Tables define rules and evidence, but the reader should understand the core product behavior before reading the tables.
+
 ## Stages
 
 | Stage | Skill | Output |
@@ -9,7 +11,7 @@ The PRD workflow is staged so each artifact has a clear job and can be corrected
 | 00 | `prd-00-pipeline-orchestrator` | Coordinates the full workflow |
 | 01 | `prd-01-idea-intake` | `00-intake.md` |
 | 02 | `prd-02-business-boundary` | `01-boundary.md` |
-| 03 | `prd-03-rule-modeler` | `02-rules.md` |
+| 03 | `prd-03-rule-modeler` | `02-rules.md`, including a functional rule narrative |
 | 04 | `prd-04-flow-modeler` | `03-flows.md` |
 | 05 | `prd-05-page-interaction` | `04-pages.md` |
 | 06 | `prd-06-admin-config` | `05-admin-config.md` |

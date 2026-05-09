@@ -43,6 +43,21 @@ If blockers remain, do not write `08-delivery-prd.md`. Return to the owning earl
 7. If a section is not actionable by engineering, design, QA, operations, or PM, delete or rewrite it.
 8. Do not convert unresolved `Decision needed`, `Rule gap`, or `Needs history check` items into final decisions. Resolve them before this skill runs, or keep only non-blocking sign-off notes with recommended defaults.
 9. If a blocking decision remains, stop and loop back instead of compressing.
+10. Always include a prose feature description before goals, scope, metrics, or risk tables. This section is the product behavior spine of the PRD; do not replace it with tables.
+
+## Feature description rules
+
+The final PRD must include a continuous natural-language description of the feature behavior. It should answer, in prose:
+
+1. What the feature is and where it lives in the product.
+2. Who or what triggers it.
+3. What inputs the system reads.
+4. What judgment, rule, or transformation the system performs.
+5. What output is produced.
+6. What the user sees or can do.
+7. How feedback, failure, expiration, rollback, and edge cases behave.
+
+Keep this section concrete and execution-oriented. It should be readable by product, design, engineering, QA, and operations without needing to decode the rule tables first.
 
 ## Dialectical compression
 
@@ -90,7 +105,10 @@ If any answer exposes a blocking gap, stop instead of compressing. Return to the
 ## 1. Background and problem
 {Short, concrete problem statement}
 
-## 2. Goals and non-goals
+## 2. Feature description
+{Continuous prose describing the core feature behavior: trigger, inputs, system judgment, output, user-visible behavior, feedback, failure, and rollback.}
+
+## 3. Goals and non-goals
 ### Goals
 | Goal | Success meaning |
 |---|---|
@@ -99,19 +117,19 @@ If any answer exposes a blocking gap, stop instead of compressing. Return to the
 | Non-goal | Reason |
 |---|---|
 
-## 3. Scope
+## 4. Scope
 | Scope item | Included? | Notes |
 |---|---:|---|
 
-## 4. Roles and permissions
+## 5. Roles and permissions
 | Role | View | Operate | Restrictions |
 |---|---|---|---|
 
-## 5. Core rules
+## 6. Core rules
 | Rule ID | Trigger | Condition | Result | User-facing behavior |
 |---|---|---|---|---|
 
-## 6. Flow summary
+## 7. Flow summary
 ### User flow
 {Mermaid or concise numbered flow}
 
@@ -122,15 +140,15 @@ If any answer exposes a blocking gap, stop instead of compressing. Return to the
 | Exception | Handling |
 |---|---|
 
-## 7. Page and interaction requirements
+## 8. Page and interaction requirements
 | Page / component | Required content | Actions | States |
 |---|---|---|---|
 
-## 8. Admin and operations requirements
+## 9. Admin and operations requirements
 | Requirement | Must-have? | Notes |
 |---|---:|---|
 
-## 9. Data and acceptance
+## 10. Data and acceptance
 ### Metrics
 | Metric | Definition | Why needed |
 |---|---|---|
@@ -139,7 +157,7 @@ If any answer exposes a blocking gap, stop instead of compressing. Return to the
 | Case | Precondition | Action | Expected result |
 |---|---|---|---|
 
-## 10. Risks and decisions
+## 11. Risks and decisions
 | Type | Item | Owner | Recommendation / status |
 |---|---|---|---|
 

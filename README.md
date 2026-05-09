@@ -2,7 +2,7 @@
 
 PRD Agent Kit is a Codex skill and agent workflow for turning rough product ideas into complete, usable, delivery-grade PRDs.
 
-It breaks PRD writing into small, auditable stages: idea intake, business boundary, rule modeling, flows, page interactions, admin configuration, data and acceptance, risk/debt resolution, final compression, and an HTML handoff artifact.
+It breaks PRD writing into small, auditable stages: idea intake, business boundary, functional rule narrative, rule modeling, flows, page interactions, admin configuration, data and acceptance, risk/debt resolution, final compression, and an HTML handoff artifact.
 
 Chinese documentation: [README_CN.md](README_CN.md)
 
@@ -12,6 +12,7 @@ Use this kit when you want an agent to:
 
 - turn a rough idea, user feedback, operations request, or strategy direction into a PRD;
 - avoid one huge vague AI-generated PRD;
+- preserve a clear prose description of the core feature behavior before diving into tables;
 - resolve assumptions, risks, rule gaps, and missing decisions through stage loops;
 - produce Markdown source artifacts plus a human-readable HTML handoff artifact.
 

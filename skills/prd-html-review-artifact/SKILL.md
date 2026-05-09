@@ -56,6 +56,7 @@ Include these sections unless the PRD is too narrow for them:
 
 ```text
 Overview / Delivery gate
+Feature behavior
 Sign-off defaults
 Scope boundary
 Flow
@@ -71,6 +72,7 @@ The first viewport should answer:
 
 - What is this PRD about?
 - Is it ready for handoff?
+- How does the core feature work in plain product language?
 - Which recommended defaults still need stakeholder sign-off?
 - What is the biggest risk?
 
@@ -88,6 +90,7 @@ Use interaction only when it improves handoff:
 
 - Do not invent new PRD decisions, metrics, customers, screenshots, business claims, or implementation facts.
 - Preserve recommended defaults, sign-off notes, risks, and non-blocking history checks.
+- Include a visible `Feature behavior` or equivalent section near the top. Do not start the body with metrics, risks, or sign-off cards before explaining the core product behavior.
 - Use concise labels and cards to expose uncertainty instead of hiding it in prose.
 - Keep PRD source Markdown authoritative; HTML is a reading and handoff layer.
 

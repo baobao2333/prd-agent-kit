@@ -28,7 +28,8 @@ This skill is the heart of PRD quality. It removes vague phrases and replaces th
 6. Define success and failure outcomes.
 7. Define time boundaries.
 8. Define repeat, reversal, deletion, expiration, and concurrency handling.
-9. Mark unknowns instead of filling them with fake certainty, then resolve any unknown that blocks engineering or QA before handoff.
+9. Write a functional rule narrative that explains the rule set in continuous prose.
+10. Mark unknowns instead of filling them with fake certainty, then resolve any unknown that blocks engineering or QA before handoff.
 
 ## Rule writing rules
 
@@ -40,6 +41,7 @@ This skill is the heart of PRD quality. It removes vague phrases and replaces th
 - Replace “optimized later” with explicit non-goal or follow-up trigger.
 - If a threshold is not provided, choose a conservative initial default when product context supports it and mark the rationale.
 - If no responsible default can be chosen, ask the user before handing off instead of passing the gap downstream.
+- Do not let the output be only tables. Add a short prose narrative that connects objects, triggers, inputs, decisions, outputs, user-visible behavior, feedback, failure, and rollback.
 
 ## Output format
 
@@ -76,10 +78,13 @@ This skill is the heart of PRD quality. It removes vague phrases and replaces th
 | Permission revoked |  |  |  |
 | Old client version |  |  |  |
 
-## 7. Handoff to next stage
+## 7. Functional rule narrative
+{Continuous prose explaining how the feature works end to end using the rules above. Include trigger, inputs, system judgment, output, user-visible behavior, feedback, failure, and rollback.}
+
+## 8. Handoff to next stage
 Recommended next skill: `prd-04-flow-modeler`
 ```
 
 ## Definition of done
 
-A rule model is complete when a developer no longer has to infer product decisions from prose.
+A rule model is complete when a developer no longer has to infer product decisions from prose, and a reader can understand the feature behavior before reading the tables in detail.
