@@ -45,10 +45,14 @@ prd-agent-kit/
 
 1. Clone this repository.
 2. Copy every folder under `skills/` into your Codex skills directory.
-3. Install the companion `visual-taste-lab` skill in the same Codex skills directory. The HTML handoff stage uses it to derive a document-specific design language instead of applying a fixed visual preset.
+3. Install the companion [`visual-taste-lab`](https://github.com/siuserxiaowei/visual-taste-lab/blob/main/visual-taste-lab/SKILL.md) skill in the same Codex skills directory. The HTML handoff stage uses it to derive a document-specific design language instead of applying a fixed visual preset.
 4. Copy `AGENTS.md` into the workspace where you want to run PRD generation.
 
 See [docs/install.md](docs/install.md) for exact commands.
+
+## Companion Skill Credit
+
+The adaptive HTML design-language pass depends on [`visual-taste-lab`](https://github.com/siuserxiaowei/visual-taste-lab/blob/main/visual-taste-lab/SKILL.md), created in the `siuserxiaowei/visual-taste-lab` project.
 
 ## Basic Usage
 

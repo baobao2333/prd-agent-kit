@@ -45,10 +45,14 @@ prd-agent-kit/
 
 1. 克隆这个仓库。
 2. 把 `skills/` 下面的每个 skill 文件夹复制到你的 Codex skills 目录。
-3. 同时安装配套的 `visual-taste-lab` skill 到同一个 Codex skills 目录。HTML 交付稿阶段会用它根据文档内容生成对应的设计语言，而不是套固定风格。
+3. 同时安装配套的 [`visual-taste-lab`](https://github.com/siuserxiaowei/visual-taste-lab/blob/main/visual-taste-lab/SKILL.md) skill 到同一个 Codex skills 目录。HTML 交付稿阶段会用它根据文档内容生成对应的设计语言，而不是套固定风格。
 4. 把 `AGENTS.md` 复制到你准备用来写 PRD 的项目工作区。
 
 具体命令见：[docs/install_CN.md](docs/install_CN.md)
+
+## 配套 Skill 致谢
+
+HTML 交付稿的自适应设计语言分析依赖 [`visual-taste-lab`](https://github.com/siuserxiaowei/visual-taste-lab/blob/main/visual-taste-lab/SKILL.md)，来源于 `siuserxiaowei/visual-taste-lab` 项目。
 
 ## 基本用法
 
