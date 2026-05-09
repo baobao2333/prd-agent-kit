@@ -9,7 +9,9 @@ description: Create a standalone HTML review artifact from staged PRD markdown w
 
 Turn PRD stage Markdown into a single-file HTML artifact for human review while keeping Markdown as the source of truth.
 
-Use this after `prd-09-prd-compressor`, or when a user asks to make a PRD easier to read, share, present, or review.
+Use this after `prd-09-prd-compressor`, or when a user explicitly asks to make a PRD easier to read, share, present, or review.
+
+Do not create HTML as a way to keep the pipeline moving past unresolved blockers. If the PRD is not `Review-ready`, create HTML only when the user asked for a decision-review or status artifact.
 
 ## Output Contract
 

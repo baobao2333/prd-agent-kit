@@ -47,7 +47,7 @@ Before handing off to data and acceptance:
 2. For each admin page or module, name the real operator action it enables.
 3. For each manual action, name the harm caused by a wrong operation.
 4. Delete or defer any config whose main purpose is "future flexibility".
-5. If an admin item exists because a rule is undecided, return to `prd-03-rule-modeler` or `prd-02-business-boundary` instead of adding a setting.
+5. If an admin item exists because a rule is undecided, return to `prd-03-rule-modeler` or `prd-02-business-boundary` instead of adding a setting. If the decision cannot be resolved from existing evidence with high confidence, stop and ask the user.
 
 ## Output format
 

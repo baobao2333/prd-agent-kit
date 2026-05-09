@@ -1,13 +1,13 @@
 ---
 name: prd-00-pipeline-orchestrator
-description: Orchestrate a product idea into a reviewable PRD workspace by running the PRD skills with stage gates and feedback loops. Use when the user asks to run the full idea-to-PRD workflow, create a PRD from a rough idea, or coordinate multiple PRD drafting stages. Do not use for editing one isolated rule, one page, or one metric table.
+description: Orchestrate a product idea into a PRD workspace by running the PRD skills with stage gates, feedback loops, and user breakpoints. Use when the user asks to run the full idea-to-PRD workflow, create a PRD from a rough idea, or coordinate multiple PRD drafting stages. Do not use for editing one isolated rule, one page, or one metric table.
 ---
 
 # PRD Pipeline Orchestrator
 
 ## Purpose
 
-Coordinate the full workflow from rough idea to business-usable PRD workspace. This skill does not write every detail itself. It decides which PRD sub-skills should be used, in what order, what artifact each stage must produce, and when a later stage must send work back for revision.
+Coordinate the full workflow from rough idea to business-usable PRD workspace. This skill does not write every detail itself. It decides which PRD sub-skills should be used, in what order, what artifact each stage must produce, when a later stage must send work back for revision, and when the agent must stop to ask the user for a blocking decision.
 
 The core principle:
 
@@ -36,8 +36,19 @@ Accept any of the following:
 8. Ask at most 3 blocking questions per stage. Continue with explicit assumptions for non-blocking unknowns.
 9. Each stage should create or update only its own stage artifact. Do not merge all details into the final PRD early.
 10. If a later stage exposes a `Rule gap`, return to the relevant earlier artifact and update it before continuing.
-11. If a stage has unresolved blocking `Decision needed` items, pause before treating the next artifact as `Review-ready`.
+11. If a stage has unresolved blocking `Decision needed` items, do not keep generating downstream artifacts by inertia.
 12. `prd-06-admin-config` may conclude that no admin or operations config is needed for this version. Do not invent admin requirements.
+
+## Blocker resolution protocol
+
+When a blocker appears, the agent has only two normal choices:
+
+1. Resolve it independently when confidence is high because the answer is already supported by the user request, existing artifacts, repository context, or stable product constraints. Then update the owning earlier artifact before continuing.
+2. Break out and ask the user for the smallest set of blocking decisions needed to continue, at most 3 questions.
+
+Do not continue the full pipeline just to produce a complete-looking PRD. A complete run is meaningful only when gates are resolved or the user explicitly asks for a decision-review packet.
+
+`Decision-review`, `Needs technical confirmation`, and `Not ready` documents are optional review artifacts. Generate them only when the user asks to package unresolved decisions for review, or when the user explicitly prefers a status artifact over answering blockers now.
 
 ## Dialectical loop
 
@@ -47,7 +58,7 @@ Before moving from one stage to the next, run a short challenge pass:
 2. Name at least one credible alternative or "do nothing / defer" option.
 3. List what evidence would make the recommendation wrong.
 4. Check whether the next stage depends on an unresolved product, data, legal, cost, or architecture decision.
-5. If the missing decision changes scope, rules, flow, acceptance, or operations, update the earlier artifact first instead of carrying the gap forward.
+5. If the missing decision changes scope, rules, flow, acceptance, or operations, either resolve it with high confidence and update the earlier artifact, or stop and ask the user.
 
 Do not force a single preferred decision when the inputs do not support one. Preserve competing options with trade-offs and owners until the user or stakeholder chooses.
 
@@ -55,11 +66,11 @@ Do not force a single preferred decision when the inputs do not support one. Pre
 
 | Gate | If true | Action |
 |---|---|---|
-| Blocking `Decision needed` remains | The next artifact would imply a product choice | Stop and ask for the decision, or mark the workspace as `Needs product decision` if the user wants a review artifact |
+| Blocking `Decision needed` remains | The next artifact would imply a product choice | Resolve from evidence with high confidence, or stop and ask the user |
 | `Rule gap` appears in flow, page, data, or risk review | Existing rules cannot explain the behavior | Return to `prd-03-rule-modeler` and update `02-rules.md` |
 | Acceptance criteria contain vague results such as "may", "significant", or "baseline" without a numeric or observable definition | QA cannot verify the case | Return to `prd-07-data-acceptance` before final compression |
 | Admin config exists only because it is convenient, not necessary | Operations scope is expanding | Return to `prd-06-admin-config` and move it to hardcoded or later |
-| Risk review status is `Needs product decision`, `Needs technical confirmation`, or `Not ready` | The final PRD cannot be called ready | Generate a decision-review PRD, not a review-ready PRD |
+| Risk review status is `Needs product decision`, `Needs technical confirmation`, or `Not ready` | The final PRD cannot be called ready | Stop and ask for the missing decision or confirmation, unless the user explicitly requested a decision-review artifact |
 
 ## Recommended stage order
 
@@ -73,7 +84,7 @@ Run these skills in order unless the user explicitly narrows the task:
 6. `prd-06-admin-config` — identify necessary backend / operations controls only.
 7. `prd-07-data-acceptance` — define metrics, event tracking, and acceptance tests.
 8. `prd-08-risk-debt-review` — review historical debt, compatibility, abuse, cost, and responsibility risks.
-9. `prd-09-prd-compressor` — compress all stage artifacts into either a review-ready PRD or a decision-review PRD, depending on unresolved gates.
+9. `prd-09-prd-compressor` — compress all stage artifacts only after gates are resolved, unless the user explicitly asks for a decision-review packet.
 
 ## Output format
 
@@ -102,8 +113,8 @@ The workflow is complete when:
 - Core rules are expressed as conditions, states, thresholds, and outcomes.
 - Major exceptions are covered.
 - Unknowns are not hidden.
-- A developer can estimate the work without guessing product intent, or the document clearly says which decisions block estimation.
-- A tester can write cases from the acceptance section, or the document clearly says which vague criteria block QA.
+- A developer can estimate the work without guessing product intent.
+- A tester can write cases from the acceptance section.
 - The product manager can see what they must sign off on.
 
-If these conditions are not met, the workflow may still produce a useful review artifact, but it must be labeled `Needs product decision`, `Needs technical confirmation`, or `Not ready` instead of `Review-ready`.
+If these conditions are not met, the normal workflow is not complete. Stop at the blocking stage, ask the user for the missing information, and continue only after the answer is available. Produce a `Decision-review`, `Needs technical confirmation`, or `Not ready` artifact only on explicit user request.

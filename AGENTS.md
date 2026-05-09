@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Use the installed PRD skill chain to turn rough product ideas into reviewable PRD workspaces. A workspace may be `Review-ready`, `Decision-review`, `Needs technical confirmation`, or `Not ready` depending on unresolved gates.
+Use the installed PRD skill chain to turn rough product ideas into PRD workspaces with explicit stage gates. A normal full run should end in `Review-ready`; if it cannot, the agent should resolve the blocker with high confidence or stop and ask the user.
 
 Primary workflow:
 
@@ -66,11 +66,12 @@ If the user does not provide a feature name, generate a short kebab-case name fr
 - Do not invent scope, backend systems, dashboards, notifications, AI automation, or admin modules unless the request directly requires them.
 - If `prd-04-flow-modeler` exposes a `Rule gap`, update `02-rules.md` before continuing.
 - If a blocking `Decision needed` remains, pause before treating the final PRD as `Review-ready`.
+- When a blocker appears, choose exactly one normal path: resolve it from existing evidence with high confidence and update the owning artifact, or break out and ask the user at most 3 blocking questions.
 - Before moving to the next stage, run a short challenge pass: state the current recommendation, name a credible alternative or defer option, list what evidence would make the recommendation wrong, and decide whether an earlier artifact must be updated.
 - Do not force one recommended decision when the inputs support multiple credible paths. Preserve options, trade-offs, and owners until a stakeholder chooses.
 - `prd-06-admin-config` may produce a short "not needed this version" conclusion.
 - `prd-09-prd-compressor` compresses existing stage artifacts only; it must not invent new requirements.
-- If unresolved decisions block estimation or QA, `prd-09-prd-compressor` must label the output as `Decision-review`, `Needs technical confirmation`, or `Not ready` instead of `Review-ready`.
+- Do not run `prd-09-prd-compressor` when unresolved decisions block estimation or QA, unless the user explicitly asks for a `Decision-review`, `Needs technical confirmation`, or `Not ready` status artifact.
 - After `08-review-ready-prd.md`, create a human-readable HTML review artifact by using `prd-html-review-artifact`.
 - Keep Markdown stage files as the source of truth; HTML is the review and presentation layer.
 - Before writing `09-review.html`, create or update `design-language.md` to define the artifact's visual identity, audience, layout rules, colors, typography, components, and anti-patterns.
@@ -85,11 +86,11 @@ After each stage, check:
 | Check | Action |
 |---|---|
 | Missing business context but not blocking | Continue with `Assumption` |
-| Blocking product choice | Ask the user before treating the next stage as stable |
+| Blocking product choice | Resolve with high-confidence evidence or ask the user before continuing |
 | Rule gap found in flow/page/acceptance | Return to `prd-03-rule-modeler` and update `02-rules.md` |
 | Admin config not needed | Write a short explicit conclusion in `05-admin-config.md` |
-| Risk review says not ready | Keep `08-review-ready-prd.md` marked as not review-ready |
-| Acceptance criteria are vague or unobservable | Return to `prd-07-data-acceptance` |
+| Risk review says not ready | Stop and ask, or generate a status artifact only if the user requests it |
+| Acceptance criteria are vague or unobservable | Return to `prd-07-data-acceptance`; if still blocked, ask the user |
 | Admin config exists only for flexibility | Return to `prd-06-admin-config` and hardcode, defer, or delete it |
 
 ## Final Response
@@ -100,6 +101,6 @@ When the workflow finishes, summarize:
 - the HTML review artifact path, if generated;
 - remaining decisions needed;
 - biggest risk;
-- whether the PRD is `Review-ready`, `Decision-review`, `Needs technical confirmation`, or `Not ready`.
+- whether the PRD is `Review-ready`; if not, state the blocker questions that must be answered before continuing.
 
 Keep the summary concise and do not paste the entire PRD into chat unless the user asks.

@@ -54,7 +54,7 @@ Before handing off to risk review:
 2. Pick the most important guardrail and define what evidence would force rollback.
 3. Check whether every P0 acceptance case has an observable expected result.
 4. Check whether every alert trigger has a threshold, comparison baseline, owner, and time window.
-5. If any P0 case is blocked, update `02-rules.md`, `03-flows.md`, or this artifact before continuing.
+5. If any P0 case is blocked, update `02-rules.md`, `03-flows.md`, or this artifact before continuing. If the blocker cannot be resolved from existing evidence with high confidence, stop and ask the user instead of handing off.
 
 ## Output format
 
@@ -89,4 +89,4 @@ Recommended next skill: `prd-08-risk-debt-review`
 
 This stage is complete when QA can write test cases and the product manager can explain how launch success will be judged.
 
-If QA cannot execute P0 cases because thresholds, logs, events, or product outcomes are missing, the stage is not complete. Mark the blocker and loop back instead of advancing.
+If QA cannot execute P0 cases because thresholds, logs, events, or product outcomes are missing, the stage is not complete. Mark the blocker and loop back; if the missing information is a stakeholder decision, ask the user instead of advancing.

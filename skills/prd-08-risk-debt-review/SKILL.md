@@ -45,7 +45,8 @@ Expose the risks that AI-written PRDs usually hide: historical debt, unclear own
 - If the risk depends on missing user-visible states or copy, return to `prd-05-page-interaction`.
 - If the risk is caused by speculative controls or missing operations ownership, return to `prd-06-admin-config`.
 - If the risk depends on vague metrics, alert triggers, logging, attribution, or QA evidence, return to `prd-07-data-acceptance`.
-- Use `prd-09-prd-compressor` only when unresolved items are either non-blocking or are explicitly being packaged as a `Decision-review`, `Needs technical confirmation`, or `Not ready` artifact.
+- Use `prd-09-prd-compressor` only when blocking items are resolved, or when the user explicitly asks to package unresolved items as a `Decision-review`, `Needs technical confirmation`, or `Not ready` artifact.
+- If a blocking item cannot be resolved from existing evidence with high confidence, stop and ask the user instead of continuing the pipeline.
 
 ## Output format
 
@@ -85,9 +86,9 @@ Expose the risks that AI-written PRDs usually hide: historical debt, unclear own
 | Condition | Recommended next skill | Reason |
 |---|---|---|
 | Ready with minor fixes | `prd-09-prd-compressor` | Compress into a review-ready PRD |
-| Needs product decision | `prd-02-business-boundary` or `prd-09-prd-compressor` as `Decision-review` | Decide scope, goal, owner, or package decisions for review |
-| Needs technical confirmation | Relevant earlier skill or `prd-09-prd-compressor` as `Needs technical confirmation` | Confirm architecture, data, logging, cost, or compatibility before estimation |
-| Not ready | Relevant earlier skill | Do not compress into an execution PRD |
+| Needs product decision | Ask user or return to `prd-02-business-boundary` | Do not continue until the decision is made, unless user requests a decision-review packet |
+| Needs technical confirmation | Ask user or return to the relevant earlier skill | Confirm architecture, data, logging, cost, or compatibility before estimation |
+| Not ready | Relevant earlier skill or user clarification | Do not compress into an execution PRD |
 ```
 
 ## Definition of done

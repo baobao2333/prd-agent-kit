@@ -1,15 +1,24 @@
 ---
 name: prd-09-prd-compressor
-description: Compress all PRD stage artifacts into a concise final review document for engineering, design, QA, and operations. It may be review-ready, decision-review, or not-ready depending on unresolved gates. Use at the end of the PRD workflow or when an AI-generated PRD is too long, vague, or mixed. Do not use to invent new requirements.
+description: Compress resolved PRD stage artifacts into a concise final PRD for engineering, design, QA, and operations. Use only after stage gates are resolved, unless the user explicitly asks for a decision-review or status artifact. Do not use to invent new requirements.
 ---
 
 # PRD Compressor
 
 ## Purpose
 
-Turn stage artifacts into a final PRD document that is short enough to review and honest about whether it is precise enough to execute.
+Turn resolved stage artifacts into a final PRD document that is short enough to review and precise enough to execute.
 
 This skill must compress, not expand.
+
+## Invocation gate
+
+Run this skill only when one of these is true:
+
+1. All blocking product, data, technical, legal, cost, rule, and acceptance gates are resolved.
+2. The user explicitly asks for a decision-review packet, status artifact, or not-ready summary instead of answering blockers now.
+
+If blockers remain and the user did not ask for a status artifact, do not write `08-review-ready-prd.md`. Return to the owning earlier skill or ask the user the smallest set of blocking questions.
 
 ## Inputs
 
@@ -41,9 +50,9 @@ Set one explicit status before writing the final document:
 | Status | Use when | Required behavior |
 |---|---|---|
 | `Review-ready` | No blocking product, data, technical, legal, cost, rule, or acceptance gaps remain | Compress into an execution-ready PRD |
-| `Decision-review` | The document is useful for stakeholder review, but at least one decision blocks estimation or QA | Lead with the blocking decisions and do not imply development can start |
-| `Needs technical confirmation` | Product direction is stable, but architecture, data, logging, cost, compatibility, or integration facts are unconfirmed | Lead with confirmation questions and owners |
-| `Not ready` | Scope, rules, success criteria, or responsibility boundaries are unstable | Do not compress into an execution PRD; summarize what must be resolved first |
+| `Decision-review` | The user explicitly asked to package stakeholder decisions before answering blockers | Lead with the blocking decisions and do not imply development can start |
+| `Needs technical confirmation` | The user explicitly asked for a status artifact and product direction is stable, but architecture, data, logging, cost, compatibility, or integration facts are unconfirmed | Lead with confirmation questions and owners |
+| `Not ready` | The user explicitly asked for a not-ready summary and scope, rules, success criteria, or responsibility boundaries are unstable | Do not compress into an execution PRD; summarize what must be resolved first |
 
 The filename may remain `08-review-ready-prd.md` for compatibility, but the document title and conclusion must use the actual status. Never let the filename override the readiness status.
 
@@ -59,7 +68,7 @@ Before finalizing, run this challenge pass:
 4. Which admin or operations item exists only because it is convenient?
 5. Which earlier artifact must be updated if this gap changes behavior?
 
-If any answer exposes a blocking gap, mark it in `## 10. Risks and decisions` and set the readiness status accordingly.
+If any answer exposes a blocking gap and the user did not explicitly ask for a status artifact, stop instead of compressing. Ask the user for the missing decision or return to the earlier artifact that owns the gap.
 
 ## Forbidden phrases unless immediately defined
 
@@ -156,9 +165,11 @@ If any answer exposes a blocking gap, mark it in `## 10. Risks and decisions` an
 The final PRD is done when:
 
 - The readiness status is explicit and consistent with unresolved decisions.
-- Engineering can estimate without guessing intent, or blockers are clearly labeled as blocking estimation.
+- Engineering can estimate without guessing intent.
 - Design knows what information and states must be represented.
-- QA can write test cases, or vague acceptance criteria are clearly labeled as blocking QA.
+- QA can write test cases.
 - Operations knows what it can and cannot control.
 - PM can see every remaining sign-off item.
 - The document no longer sounds like AI generated expansion.
+
+If these conditions fail, this skill should not be the next step unless the user asked for a status artifact.
