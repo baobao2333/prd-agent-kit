@@ -1,6 +1,6 @@
 # Example Input Idea
 
-Turn this idea into a review-ready PRD:
+Turn this idea into a delivery-grade PRD:
 
 We need a merchant coupon budget control feature.
 
@@ -16,4 +16,4 @@ Initial goal:
 - Let operators configure a campaign budget cap.
 - Prevent obvious over-issuance.
 - Show risk before launch.
-- Produce engineering-ready rules, flows, acceptance criteria, and an HTML review artifact.
+- Produce engineering-ready rules, flows, acceptance criteria, and an HTML handoff artifact.

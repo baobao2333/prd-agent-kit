@@ -1,8 +1,8 @@
 # PRD Agent Kit
 
-PRD Agent Kit is a Codex skill and agent workflow for turning rough product ideas into review-ready PRDs.
+PRD Agent Kit is a Codex skill and agent workflow for turning rough product ideas into complete, usable, delivery-grade PRDs.
 
-It breaks PRD writing into small, auditable stages: idea intake, business boundary, rule modeling, flows, page interactions, admin configuration, data and acceptance, risk review, final compression, and an HTML review artifact.
+It breaks PRD writing into small, auditable stages: idea intake, business boundary, rule modeling, flows, page interactions, admin configuration, data and acceptance, risk/debt resolution, final compression, and an HTML handoff artifact.
 
 Chinese documentation: [README_CN.md](README_CN.md)
 
@@ -12,8 +12,8 @@ Use this kit when you want an agent to:
 
 - turn a rough idea, user feedback, operations request, or strategy direction into a PRD;
 - avoid one huge vague AI-generated PRD;
-- expose assumptions, risks, rule gaps, and decisions needed;
-- produce Markdown source artifacts plus a human-readable HTML review artifact.
+- resolve assumptions, risks, rule gaps, and missing decisions through stage loops;
+- produce Markdown source artifacts plus a human-readable HTML handoff artifact.
 
 Do not use the full workflow for one small copy edit, one isolated metric table, or a narrow rule change. Use the relevant stage skill directly for those cases.
 
@@ -53,7 +53,7 @@ See [docs/install.md](docs/install.md) for exact commands.
 In a workspace that contains this repo's `AGENTS.md`, ask Codex something like:
 
 ```text
-Turn this idea into a review-ready PRD:
+Turn this idea into a delivery-grade PRD:
 
 We need a merchant coupon budget control feature. Operators should be able to set campaign budget caps, stop over-issuance, and review risk before launch.
 ```
@@ -75,14 +75,14 @@ Expected output shape:
 05-admin-config.md
 06-data-acceptance.md
 07-risk-review.md
-08-review-ready-prd.md
+08-delivery-prd.md
 design-language.md
 09-review.html
 ```
 
 ## Workflow
 
-The full workflow is coordinated by `prd-00-pipeline-orchestrator`, then executed through the stage skills in order. The final `prd-html-review-artifact` skill turns the Markdown source into a standalone HTML review artifact.
+The full workflow is coordinated by `prd-00-pipeline-orchestrator`, then executed through the stage skills in order. The final `prd-html-review-artifact` skill turns the Markdown source into a standalone HTML handoff artifact.
 
 See [docs/workflow.md](docs/workflow.md) for the stage-by-stage breakdown.
 

@@ -23,7 +23,7 @@ Expose the risks that AI-written PRDs usually hide: historical debt, unclear own
 4. Do not move product decisions to engineering by using vague wording.
 5. Do not hide business risk behind “optimize later”.
 6. Every high-risk item must have an owner or an explicit decision gap.
-7. Run a confidence loop before finalizing the review: ask whether the strategy is factually strong enough to defend. If not, find all known loopholes, suggest proper fixes, and repeat until no factual loopholes remain. If 100% confidence cannot be justified from the available facts, mark the PRD as `Not ready` or `Needs product decision` instead of pretending certainty.
+7. Run a confidence loop before finalizing the review: ask whether the strategy is factually strong enough to defend. If not, find all known loopholes, propose fixes, loop back to the owning artifact, and repeat until no delivery-blocking loopholes remain. Do not finish with a list of blockers unless the missing item truly requires user or stakeholder input.
 
 ## Process
 
@@ -45,8 +45,8 @@ Expose the risks that AI-written PRDs usually hide: historical debt, unclear own
 - If the risk depends on missing user-visible states or copy, return to `prd-05-page-interaction`.
 - If the risk is caused by speculative controls or missing operations ownership, return to `prd-06-admin-config`.
 - If the risk depends on vague metrics, alert triggers, logging, attribution, or QA evidence, return to `prd-07-data-acceptance`.
-- Use `prd-09-prd-compressor` only when blocking items are resolved, or when the user explicitly asks to package unresolved items as a `Decision-review`, `Needs technical confirmation`, or `Not ready` artifact.
-- If a blocking item cannot be resolved from existing evidence with high confidence, stop and ask the user instead of continuing the pipeline.
+- Use `prd-09-prd-compressor` only when blocking items are resolved.
+- If a blocking item cannot be resolved from existing evidence with high confidence, ask the user for the specific missing decision, then continue after the answer.
 
 ## Output format
 
@@ -56,7 +56,7 @@ Expose the risks that AI-written PRDs usually hide: historical debt, unclear own
 ## 1. Review conclusion
 | Status | Meaning |
 |---|---|
-| Ready with minor fixes / Needs product decision / Needs technical confirmation / Not ready |
+| Ready for compression / Loop-back required / User decision required |
 
 ## 2. Scope creep check
 | Item | Problem | Recommendation |
@@ -78,17 +78,16 @@ Expose the risks that AI-written PRDs usually hide: historical debt, unclear own
 | Wording or decision | Why risky | Rewrite or decision needed |
 |---|---|---|
 
-## 7. Required decisions before review
-| Decision | Options | Recommended default | Sign-off owner |
+## 7. Sign-off defaults
+| Decision | Options considered | Recommended default | Sign-off owner |
 |---|---|---|---|
 
 ## 8. Handoff to next stage
 | Condition | Recommended next skill | Reason |
 |---|---|---|
-| Ready with minor fixes | `prd-09-prd-compressor` | Compress into a review-ready PRD |
-| Needs product decision | Ask user or return to `prd-02-business-boundary` | Do not continue until the decision is made, unless user requests a decision-review packet |
-| Needs technical confirmation | Ask user or return to the relevant earlier skill | Confirm architecture, data, logging, cost, or compatibility before estimation |
-| Not ready | Relevant earlier skill or user clarification | Do not compress into an execution PRD |
+| Ready for compression | `prd-09-prd-compressor` | Compress into a delivery-grade PRD |
+| Loop-back required | Relevant earlier skill | Fix the owning artifact and re-run affected later stages |
+| User decision required | Ask user | Only for choices the agent cannot responsibly decide |
 ```
 
 ## Definition of done

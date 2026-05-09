@@ -12,9 +12,9 @@ docs/prd-workspace/merchant-coupon-budget-control/
   05-admin-config.md
   06-data-acceptance.md
   07-risk-review.md
-  08-review-ready-prd.md
+  08-delivery-prd.md
   design-language.md
   09-review.html
 ```
 
-The Markdown files are the source of truth. `09-review.html` is the readable review artifact.
+The Markdown files are the source of truth. `09-review.html` is the readable handoff artifact.

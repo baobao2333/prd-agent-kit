@@ -28,7 +28,7 @@ This skill is the heart of PRD quality. It removes vague phrases and replaces th
 6. Define success and failure outcomes.
 7. Define time boundaries.
 8. Define repeat, reversal, deletion, expiration, and concurrency handling.
-9. Mark unknowns instead of filling them with fake certainty.
+9. Mark unknowns instead of filling them with fake certainty, then resolve any unknown that blocks engineering or QA before handoff.
 
 ## Rule writing rules
 
@@ -38,6 +38,8 @@ This skill is the heart of PRD quality. It removes vague phrases and replaces th
 - Replace “system determines” with inputs and output states.
 - Replace “backend configurable” with actual config item, default value, and failure handling.
 - Replace “optimized later” with explicit non-goal or follow-up trigger.
+- If a threshold is not provided, choose a conservative initial default when product context supports it and mark the rationale.
+- If no responsible default can be chosen, ask the user before handing off instead of passing the gap downstream.
 
 ## Output format
 

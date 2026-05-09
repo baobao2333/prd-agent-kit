@@ -1,6 +1,6 @@
 # 工作流说明
 
-这套 PRD 工作流把“写 PRD”拆成多个阶段，让每个阶段都有清楚的职责，也方便单独评审和修改。
+这套 PRD 工作流把“写 PRD”拆成多个阶段，让每个阶段都有清楚的职责，并在发现缺口时回到对应阶段修正，最终产出可交付 PRD。
 
 ## 阶段列表
 
@@ -15,17 +15,17 @@
 | 06 | `prd-06-admin-config` | `05-admin-config.md` |
 | 07 | `prd-07-data-acceptance` | `06-data-acceptance.md` |
 | 08 | `prd-08-risk-debt-review` | `07-risk-review.md` |
-| 09 | `prd-09-prd-compressor` | `08-review-ready-prd.md` |
+| 09 | `prd-09-prd-compressor` | `08-delivery-prd.md` |
 | HTML | `prd-html-review-artifact` | `design-language.md`、`09-review.html` |
 
 ## 阶段门禁
 
-如果还存在会影响方案成立的关键决策，流程应该暂停，不要假装已经评审完成。
+如果还存在会影响方案成立的关键决策，流程不应该只记录问题后继续推进。agent 应该先回到对应阶段补齐，能做保守推荐就给出推荐默认值；只有无法替代业务方决策时才向用户提问。
 
 非阻塞的不确定性可以标记为：`Fact`、`Assumption`、`Decision needed`、`Risk`、`Out of scope`、`Needs history check`、`Rule gap`。
 
 如果流程、页面或验收阶段发现规则缺口，应该回到规则建模阶段补 `02-rules.md`，再继续往后走。
 
-## 源文件和评审稿
+## 源文件和交付稿
 
-Markdown 阶段文件是源文件。HTML 文件是给人阅读、分享和评审用的展示层。
+Markdown 阶段文件是源文件。HTML 文件是给人阅读、分享和交付用的展示层。

@@ -1,6 +1,6 @@
 ---
 name: prd-09-prd-compressor
-description: Compress resolved PRD stage artifacts into a concise final PRD for engineering, design, QA, and operations. Use only after stage gates are resolved, unless the user explicitly asks for a decision-review or status artifact. Do not use to invent new requirements.
+description: Compress resolved PRD stage artifacts into a concise delivery-grade PRD for engineering, design, QA, and operations. Use only after stage gates are resolved. Do not use to invent new requirements.
 ---
 
 # PRD Compressor
@@ -13,12 +13,13 @@ This skill must compress, not expand.
 
 ## Invocation gate
 
-Run this skill only when one of these is true:
+Run this skill only when all of these are true:
 
-1. All blocking product, data, technical, legal, cost, rule, and acceptance gates are resolved.
-2. The user explicitly asks for a decision-review packet, status artifact, or not-ready summary instead of answering blockers now.
+1. Blocking product, data, technical, legal, cost, rule, and acceptance gates are resolved.
+2. Remaining sign-off notes have recommended defaults and do not block engineering estimation or QA case writing.
+3. The risk review does not require a loop-back to an earlier artifact.
 
-If blockers remain and the user did not ask for a status artifact, do not write `08-review-ready-prd.md`. Return to the owning earlier skill or ask the user the smallest set of blocking questions.
+If blockers remain, do not write `08-delivery-prd.md`. Return to the owning earlier skill, resolve the gap, and re-run affected later stages. Ask the user only when the missing decision cannot be responsibly made by the agent.
 
 ## Inputs
 
@@ -36,29 +37,16 @@ If blockers remain and the user did not ask for a status artifact, do not write 
 1. Preserve decisions; remove brainstorming.
 2. Preserve rules; remove slogans.
 3. Preserve boundaries; remove speculative future features.
-4. Preserve unknowns; do not fake certainty.
+4. Preserve non-blocking assumptions and sign-off notes; do not fake certainty.
 5. Move non-blocking details to appendix or later version.
 6. Convert vague wording into explicit product language.
 7. If a section is not actionable by engineering, design, QA, operations, or PM, delete or rewrite it.
-8. Do not convert unresolved `Decision needed`, `Rule gap`, or `Needs history check` items into final decisions.
-9. If blocking decisions remain, mark the PRD as not review-ready and list the exact owner or confirmation needed.
-
-## Readiness gate
-
-Set one explicit status before writing the final document:
-
-| Status | Use when | Required behavior |
-|---|---|---|
-| `Review-ready` | No blocking product, data, technical, legal, cost, rule, or acceptance gaps remain | Compress into an execution-ready PRD |
-| `Decision-review` | The user explicitly asked to package stakeholder decisions before answering blockers | Lead with the blocking decisions and do not imply development can start |
-| `Needs technical confirmation` | The user explicitly asked for a status artifact and product direction is stable, but architecture, data, logging, cost, compatibility, or integration facts are unconfirmed | Lead with confirmation questions and owners |
-| `Not ready` | The user explicitly asked for a not-ready summary and scope, rules, success criteria, or responsibility boundaries are unstable | Do not compress into an execution PRD; summarize what must be resolved first |
-
-The filename may remain `08-review-ready-prd.md` for compatibility, but the document title and conclusion must use the actual status. Never let the filename override the readiness status.
+8. Do not convert unresolved `Decision needed`, `Rule gap`, or `Needs history check` items into final decisions. Resolve them before this skill runs, or keep only non-blocking sign-off notes with recommended defaults.
+9. If a blocking decision remains, stop and loop back instead of compressing.
 
 ## Dialectical compression
 
-For every major recommendation, preserve the strongest credible alternative when the source artifacts contain unresolved choices. Do not collapse options into one preferred path unless a stage artifact records the decision.
+For every major recommendation, preserve the strongest credible alternative in rationale when useful, but the final PRD must have one executable default path.
 
 Before finalizing, run this challenge pass:
 
@@ -68,7 +56,7 @@ Before finalizing, run this challenge pass:
 4. Which admin or operations item exists only because it is convenient?
 5. Which earlier artifact must be updated if this gap changes behavior?
 
-If any answer exposes a blocking gap and the user did not explicitly ask for a status artifact, stop instead of compressing. Ask the user for the missing decision or return to the earlier artifact that owns the gap.
+If any answer exposes a blocking gap, stop instead of compressing. Return to the earlier artifact that owns the gap, or ask the user if the choice is truly business-owned.
 
 ## Forbidden phrases unless immediately defined
 
@@ -90,14 +78,14 @@ If any answer exposes a blocking gap and the user did not explicitly ask for a s
 ## 0. Review conclusion
 | Item | Conclusion |
 |---|---|
-| Readiness status | Review-ready / Decision-review / Needs technical confirmation / Not ready |
+| Delivery status | Ready for handoff |
 | Version goal |  |
 | This version does |  |
 | This version does not do |  |
-| Biggest decision needed |  |
+| Recommended defaults requiring sign-off |  |
 | Biggest risk |  |
-| Can engineering estimate? | Yes / No, blocked by ... |
-| Can QA write executable cases? | Yes / No, blocked by ... |
+| Engineering estimate readiness | Ready |
+| QA case readiness | Ready |
 
 ## 1. Background and problem
 {Short, concrete problem statement}
@@ -152,7 +140,7 @@ If any answer exposes a blocking gap and the user did not explicitly ask for a s
 |---|---|---|---|
 
 ## 10. Risks and decisions
-| Type | Item | Owner | Status |
+| Type | Item | Owner | Recommendation / status |
 |---|---|---|---|
 
 ## Appendix: deferred items
@@ -164,7 +152,7 @@ If any answer exposes a blocking gap and the user did not explicitly ask for a s
 
 The final PRD is done when:
 
-- The readiness status is explicit and consistent with unresolved decisions.
+- The delivery status is ready for handoff.
 - Engineering can estimate without guessing intent.
 - Design knows what information and states must be represented.
 - QA can write test cases.
@@ -172,4 +160,4 @@ The final PRD is done when:
 - PM can see every remaining sign-off item.
 - The document no longer sounds like AI generated expansion.
 
-If these conditions fail, this skill should not be the next step unless the user asked for a status artifact.
+If these conditions fail, this skill should not be the next step.

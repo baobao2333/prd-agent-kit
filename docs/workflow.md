@@ -1,6 +1,6 @@
 # Workflow
 
-The PRD workflow is staged so each artifact has a clear job and can be reviewed independently.
+The PRD workflow is staged so each artifact has a clear job and can be corrected before the final delivery PRD is produced.
 
 ## Stages
 
@@ -15,15 +15,15 @@ The PRD workflow is staged so each artifact has a clear job and can be reviewed 
 | 06 | `prd-06-admin-config` | `05-admin-config.md` |
 | 07 | `prd-07-data-acceptance` | `06-data-acceptance.md` |
 | 08 | `prd-08-risk-debt-review` | `07-risk-review.md` |
-| 09 | `prd-09-prd-compressor` | `08-review-ready-prd.md` |
+| 09 | `prd-09-prd-compressor` | `08-delivery-prd.md` |
 | HTML | `prd-html-review-artifact` | `design-language.md`, `09-review.html` |
 
 ## Stage Gates
 
-The workflow should pause when a blocking decision remains. Non-blocking uncertainty should be labeled as `Fact`, `Assumption`, `Decision needed`, `Risk`, `Out of scope`, `Needs history check`, or `Rule gap`.
+The workflow should resolve blocking gaps instead of merely recording them. The agent should loop back to the owning artifact, make a conservative recommendation when responsible, and re-run affected later stages. It should ask the user only when a missing choice cannot be safely decided by the agent.
 
 If a flow, page, or acceptance stage exposes a rule gap, return to the rule model before final compression.
 
 ## Source Of Truth
 
-Markdown stage files are the source of truth. The HTML artifact is a review and presentation layer.
+Markdown stage files are the source of truth. The HTML artifact is a handoff and presentation layer.

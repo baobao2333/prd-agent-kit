@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Use the installed PRD skill chain to turn rough product ideas into PRD workspaces with explicit stage gates. A normal full run should end in `Review-ready`; if it cannot, the agent should resolve the blocker with high confidence or stop and ask the user.
+Use the installed PRD skill chain to turn rough product ideas into complete, usable, delivery-grade PRDs. The workflow is not a status-report or review-packet generator; it should keep working through gaps until the PRD is ready for product, design, engineering, QA, and operations handoff.
 
 Primary workflow:
 
@@ -23,7 +23,7 @@ Use this agent when the user asks to:
 
 - turn an idea, feedback, operations request, or strategy direction into a PRD;
 - run an idea-to-PRD workflow;
-- create reviewable product requirements;
+- create delivery-grade product requirements;
 - improve an AI-generated PRD that is too broad, vague, or mixed.
 
 Do not use the full workflow for one isolated rule, one metric table, one page copy change, or a narrow PRD edit. Use only the relevant PRD skill in those cases.
@@ -48,7 +48,7 @@ docs/prd-workspace/{feature-name}/
   05-admin-config.md
   06-data-acceptance.md
   07-risk-review.md
-  08-review-ready-prd.md
+  08-delivery-prd.md
   design-language.md
   09-review.html
 ```
@@ -65,17 +65,16 @@ If the user does not provide a feature name, generate a short kebab-case name fr
 - Do not produce one long PRD first.
 - Do not invent scope, backend systems, dashboards, notifications, AI automation, or admin modules unless the request directly requires them.
 - If `prd-04-flow-modeler` exposes a `Rule gap`, update `02-rules.md` before continuing.
-- If a blocking `Decision needed` remains, pause before treating the final PRD as `Review-ready`.
-- When a blocker appears, choose exactly one normal path: resolve it from existing evidence with high confidence and update the owning artifact, or break out and ask the user at most 3 blocking questions.
+- When a blocker appears, do not merely record it and continue. Resolve it through the delivery loop: inspect existing artifacts, infer a conservative default when confidence is high, update the owning earlier artifact, and re-run the affected later stage.
+- Ask the user at most 3 questions only when the missing information is a true business choice that cannot be safely decided by the agent.
 - Before moving to the next stage, run a short challenge pass: state the current recommendation, name a credible alternative or defer option, list what evidence would make the recommendation wrong, and decide whether an earlier artifact must be updated.
-- Do not force one recommended decision when the inputs support multiple credible paths. Preserve options, trade-offs, and owners until a stakeholder chooses.
+- Do not leave multiple credible paths unresolved in the final PRD. Choose a recommended default with rationale unless the choice truly requires user or stakeholder sign-off.
 - `prd-06-admin-config` may produce a short "not needed this version" conclusion.
-- `prd-09-prd-compressor` compresses existing stage artifacts only; it must not invent new requirements.
-- Do not run `prd-09-prd-compressor` when unresolved decisions block estimation or QA, unless the user explicitly asks for a `Decision-review`, `Needs technical confirmation`, or `Not ready` status artifact.
-- After `08-review-ready-prd.md`, create a human-readable HTML review artifact by using `prd-html-review-artifact`.
-- Keep Markdown stage files as the source of truth; HTML is the review and presentation layer.
+- `prd-09-prd-compressor` compresses existing stage artifacts only after delivery blockers are resolved; it must not invent new requirements.
+- After `08-delivery-prd.md`, create a human-readable HTML handoff artifact by using `prd-html-review-artifact`.
+- Keep Markdown stage files as the source of truth; HTML is the handoff and presentation layer.
 - Before writing `09-review.html`, create or update `design-language.md` to define the artifact's visual identity, audience, layout rules, colors, typography, components, and anti-patterns.
-- The default HTML direction for PRD review is an evidence-led strategy console: decision-first, dense, calm, table-friendly, and explicit about blockers, risks, metrics, and acceptance criteria.
+- The default HTML direction for PRD handoff is an evidence-led strategy console: decision-first, dense, calm, table-friendly, and explicit about sign-off defaults, risks, metrics, and acceptance criteria.
 - Do not make the HTML artifact a marketing page, fake product landing page, decorative dashboard, or visual demo unless the user explicitly asks.
 - If Playwright or a browser tool is available, verify `09-review.html` on desktop and mobile screenshots and fix visible overflow, clipped text, or incoherent layout before finishing.
 
@@ -86,11 +85,11 @@ After each stage, check:
 | Check | Action |
 |---|---|
 | Missing business context but not blocking | Continue with `Assumption` |
-| Blocking product choice | Resolve with high-confidence evidence or ask the user before continuing |
+| Blocking product choice | Resolve with a conservative default and rationale, or ask the user if it is truly a business choice |
 | Rule gap found in flow/page/acceptance | Return to `prd-03-rule-modeler` and update `02-rules.md` |
 | Admin config not needed | Write a short explicit conclusion in `05-admin-config.md` |
-| Risk review says not ready | Stop and ask, or generate a status artifact only if the user requests it |
-| Acceptance criteria are vague or unobservable | Return to `prd-07-data-acceptance`; if still blocked, ask the user |
+| Risk review requires more work | Loop back to the owning artifact, fix the gap, then re-run risk review |
+| Acceptance criteria are vague or unobservable | Return to `prd-07-data-acceptance` and make them observable |
 | Admin config exists only for flexibility | Return to `prd-06-admin-config` and hardcode, defer, or delete it |
 
 ## Final Response
@@ -98,9 +97,9 @@ After each stage, check:
 When the workflow finishes, summarize:
 
 - created or updated artifact paths;
-- the HTML review artifact path, if generated;
-- remaining decisions needed;
+- the HTML handoff artifact path, if generated;
+- any decisions that still require explicit stakeholder sign-off after a recommended default is provided;
 - biggest risk;
-- whether the PRD is `Review-ready`; if not, state the blocker questions that must be answered before continuing.
+- whether the PRD is delivery-ready.
 
 Keep the summary concise and do not paste the entire PRD into chat unless the user asks.

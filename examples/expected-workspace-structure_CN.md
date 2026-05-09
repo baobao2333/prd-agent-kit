@@ -12,9 +12,9 @@ docs/prd-workspace/merchant-coupon-budget-control/
   05-admin-config.md
   06-data-acceptance.md
   07-risk-review.md
-  08-review-ready-prd.md
+  08-delivery-prd.md
   design-language.md
   09-review.html
 ```
 
-Markdown 文件是源文件。`09-review.html` 是方便阅读和评审的展示稿。
+Markdown 文件是源文件。`09-review.html` 是方便阅读和交付的展示稿。

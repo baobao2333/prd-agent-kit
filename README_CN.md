@@ -1,12 +1,12 @@
 # PRD Agent Kit
 
-PRD Agent Kit 是一套给 Codex 使用的 PRD 生成技能链和 agent 工作流。它的目标不是一次性写出一篇很长、很虚的 PRD，而是把 PRD 拆成一组可检查、可追踪、可修改的阶段产物。
+PRD Agent Kit 是一套给 Codex 使用的 PRD 生成技能链和 agent 工作流。它的目标是把粗糙想法推进成完整、可用、可交付的 PRD，而不是停留在评审意见或状态报告。
 
 英文说明见：[README.md](README.md)
 
 ## 适合什么场景
 
-当你需要把下面这些输入整理成可评审 PRD 时，可以使用这套工具：
+当你需要把下面这些输入整理成交付级 PRD 时，可以使用这套工具：
 
 - 粗糙的产品想法；
 - 用户反馈；
@@ -14,7 +14,7 @@ PRD Agent Kit 是一套给 Codex 使用的 PRD 生成技能链和 agent 工作�
 - 策略方向；
 - 一篇太散、太长、太模糊的 AI 生成 PRD。
 
-它会依次处理问题定义、业务边界、规则模型、流程、页面交互、后台配置、数据验收、风险债务、最终压缩，并生成一份 HTML 评审稿。
+它会依次处理问题定义、业务边界、规则模型、流程、页面交互、后台配置、数据验收、风险债务、最终压缩，并生成一份 HTML 交付稿。遇到缺口时，agent 应该回到对应阶段补齐；只有真正无法替代业务方决策时才向用户提问。
 
 如果只是改一句页面文案、补一个指标表、调整一个孤立规则，不需要跑完整流程，直接调用对应阶段的 skill 就好。
 
@@ -54,7 +54,7 @@ prd-agent-kit/
 在包含 `AGENTS.md` 的工作区里，对 Codex 说：
 
 ```text
-把这个想法整理成可评审 PRD：
+把这个想法整理成交付级 PRD：
 
 我们需要一个商家优惠券预算控制功能。运营可以设置活动预算上限，避免超发，并在上线前看到风险。
 ```
@@ -71,14 +71,14 @@ docs/prd-workspace/{feature-name}/
   05-admin-config.md
   06-data-acceptance.md
   07-risk-review.md
-  08-review-ready-prd.md
+  08-delivery-prd.md
   design-language.md
   09-review.html
 ```
 
 ## 工作流
 
-完整流程由 `prd-00-pipeline-orchestrator` 协调，然后按阶段调用 `prd-01` 到 `prd-09`。最后用 `prd-html-review-artifact` 把 Markdown 产物转成单文件 HTML 评审稿。
+完整流程由 `prd-00-pipeline-orchestrator` 协调，然后按阶段调用 `prd-01` 到 `prd-09`。最后用 `prd-html-review-artifact` 把 Markdown 产物转成单文件 HTML 交付稿。
 
 阶段说明见：[docs/workflow_CN.md](docs/workflow_CN.md)
 

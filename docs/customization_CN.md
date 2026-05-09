@@ -9,7 +9,7 @@
 - 修改想法收集：`skills/prd-01-idea-intake/SKILL.md`
 - 修改规则建模严格度：`skills/prd-03-rule-modeler/SKILL.md`
 - 修改最终 PRD 结构：`skills/prd-09-prd-compressor/SKILL.md`
-- 修改 HTML 评审稿风格：`skills/prd-html-review-artifact/SKILL.md`
+- 修改 HTML 交付稿风格：`skills/prd-html-review-artifact/SKILL.md`
 
 ## 修改整体工作流
 
@@ -27,4 +27,4 @@
 
 优先一次只改一个阶段。比如发现规则模型太虚，就收紧 `prd-03-rule-modeler`，不要马上往所有 skill 里加一堆全局限制。
 
-这套工作流最重要的原则是：让不确定性显性化，而不是把问题藏在一篇看起来很完整的 PRD 里。
+这套工作流最重要的原则是：让不确定性显性化，然后通过回环补齐到可交付，而不是把问题藏在一篇看起来很完整的 PRD 里。

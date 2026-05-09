@@ -29,8 +29,9 @@ Compress the expanded idea into a versioned business boundary. This skill decide
 
 - If a capability is useful but not necessary for the first usable version, put it in `Later`.
 - If a capability adds operational or technical complexity without protecting the core goal, put it in `Not this version`.
-- If the business owner must choose between cost, risk, and user experience, mark it as `Decision needed`.
+- If the business owner must choose between cost, risk, and user experience, propose a recommended default with rationale. Ask the user only when the trade-off cannot be responsibly decided by the agent.
 - If current system behavior is unknown, do not assume it is easy to change. Mark it as `Needs history check`.
+- Do not hand off a boundary that leaves the current version split across multiple possible scopes. Pick one first-version scope.
 
 ## Output format
 
