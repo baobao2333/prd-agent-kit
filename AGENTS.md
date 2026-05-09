@@ -73,8 +73,9 @@ If the user does not provide a feature name, generate a short kebab-case name fr
 - `prd-09-prd-compressor` compresses existing stage artifacts only after delivery blockers are resolved; it must not invent new requirements.
 - After `08-delivery-prd.md`, create a human-readable HTML handoff artifact by using `prd-html-review-artifact`.
 - Keep Markdown stage files as the source of truth; HTML is the handoff and presentation layer.
-- Before writing `09-review.html`, create or update `design-language.md` to define the artifact's visual identity, audience, layout rules, colors, typography, components, and anti-patterns.
-- The default HTML direction for PRD handoff is an evidence-led strategy console: decision-first, dense, calm, table-friendly, and explicit about sign-off defaults, risks, metrics, and acceptance criteria.
+- Before writing `09-review.html`, reuse `design-language.md` when it already exists and the user has not asked to refresh the visual direction.
+- When `design-language.md` does not exist, use `visual-taste-lab` if available to analyze the PRD content, audience, density, risk profile, and handoff job, then create an appropriate design language. Do not ask the user to confirm style; choose a suitable direction and proceed.
+- If `visual-taste-lab` is unavailable, still create `design-language.md` from the same content-first analysis and continue. Do not block PRD completion on visual style.
 - Do not make the HTML artifact a marketing page, fake product landing page, decorative dashboard, or visual demo unless the user explicitly asks.
 - If Playwright or a browser tool is available, verify `09-review.html` on desktop and mobile screenshots and fix visible overflow, clipped text, or incoherent layout before finishing.
 

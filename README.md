@@ -45,7 +45,8 @@ prd-agent-kit/
 
 1. Clone this repository.
 2. Copy every folder under `skills/` into your Codex skills directory.
-3. Copy `AGENTS.md` into the workspace where you want to run PRD generation.
+3. Install the companion `visual-taste-lab` skill in the same Codex skills directory. The HTML handoff stage uses it to derive a document-specific design language instead of applying a fixed visual preset.
+4. Copy `AGENTS.md` into the workspace where you want to run PRD generation.
 
 See [docs/install.md](docs/install.md) for exact commands.
 
@@ -84,6 +85,8 @@ design-language.md
 ## Workflow
 
 The full workflow is coordinated by `prd-00-pipeline-orchestrator`, then executed through the stage skills in order. The final `prd-html-review-artifact` skill turns the Markdown source into a standalone HTML handoff artifact.
+
+If a PRD workspace already contains `design-language.md`, the agent reuses it unless the user asks for a visual refresh. Otherwise it uses `visual-taste-lab` to analyze the PRD content and choose a suitable handoff style without pausing for style confirmation.
 
 See [docs/workflow.md](docs/workflow.md) for the stage-by-stage breakdown.
 

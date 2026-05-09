@@ -45,7 +45,8 @@ prd-agent-kit/
 
 1. 克隆这个仓库。
 2. 把 `skills/` 下面的每个 skill 文件夹复制到你的 Codex skills 目录。
-3. 把 `AGENTS.md` 复制到你准备用来写 PRD 的项目工作区。
+3. 同时安装配套的 `visual-taste-lab` skill 到同一个 Codex skills 目录。HTML 交付稿阶段会用它根据文档内容生成对应的设计语言，而不是套固定风格。
+4. 把 `AGENTS.md` 复制到你准备用来写 PRD 的项目工作区。
 
 具体命令见：[docs/install_CN.md](docs/install_CN.md)
 
@@ -79,6 +80,8 @@ docs/prd-workspace/{feature-name}/
 ## 工作流
 
 完整流程由 `prd-00-pipeline-orchestrator` 协调，然后按阶段调用 `prd-01` 到 `prd-09`。最后用 `prd-html-review-artifact` 把 Markdown 产物转成单文件 HTML 交付稿。
+
+如果 PRD 工作区里已经有 `design-language.md`，且用户没有要求更新视觉方向，agent 会直接复用。否则 agent 会用 `visual-taste-lab` 分析 PRD 内容并自行选择合适的交付稿风格，不单独停下来确认风格。
 
 阶段说明见：[docs/workflow_CN.md](docs/workflow_CN.md)
 

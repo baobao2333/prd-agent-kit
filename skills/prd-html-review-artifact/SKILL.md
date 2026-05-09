@@ -29,26 +29,27 @@ Keep existing stage files unchanged unless the user asks to revise the PRD conte
 
 1. Read `08-delivery-prd.md` first.
 2. Read `07-risk-review.md` and `06-data-acceptance.md` when risks, decisions, metrics, or acceptance details need stronger structure.
-3. Create or update `design-language.md` before editing HTML.
-4. Generate `09-review.html` as a standalone file with inline CSS and minimal inline JavaScript.
-5. Verify desktop and mobile rendering with screenshots when Playwright or a browser tool is available.
-6. Fix visible overflow, clipped text, incoherent spacing, and mobile horizontal scroll caused by layout rather than intentional table scrolling.
+3. Reuse `design-language.md` when it already exists and the user has not asked to update visual direction.
+4. If `design-language.md` does not exist, use `visual-taste-lab` when available to analyze the PRD content and create `design-language.md`.
+5. If `visual-taste-lab` is unavailable, infer the design language from the PRD content yourself and continue.
+6. Generate `09-review.html` as a standalone file with inline CSS and minimal inline JavaScript.
+7. Verify desktop and mobile rendering with screenshots when Playwright or a browser tool is available.
+8. Fix visible overflow, clipped text, incoherent spacing, and mobile horizontal scroll caused by layout rather than intentional table scrolling.
 
 ## Design Language Rules
 
 Start from the artifact's job, not decoration.
 
-For PRD handoff artifacts, prefer an institutional handoff console:
+If `design-language.md` already exists, treat it as the visual source of truth unless the user asks for a refresh.
 
-- Archetype: Evidence-Led Report + Dense Operational Dashboard.
-- Mood: precise, calm, scannable, decision-first.
-- Visual priority: delivery conclusion, sign-off defaults, scope, flow, rules, metrics, acceptance, risks.
-- Layout: compact header, left or top navigation, decision cards, dense tables, functional diagrams.
-- Color: neutral document base, one primary blue, one positive teal/green, red only for blocking decisions, amber only for controlled risk.
-- Geometry: small radius, clear borders, minimal shadow.
-- Imagery: no fake product screenshots, phone mockups, decorative gradients, or marketing hero unless the user explicitly asks.
+When creating `design-language.md`, use `visual-taste-lab` if available. Do not ask the user to confirm style; style is a support decision, not a PRD blocker. Choose a direction based on the document:
 
-If the user requests a different visual direction, state the direction and update `design-language.md` first.
+- Rule-heavy PRDs should become dense engineering handoff documents.
+- Strategy-heavy PRDs should become decision memos with clear rationale and trade-offs.
+- Operations-heavy PRDs should become operational consoles focused on controls, exceptions, and responsibility.
+- Experience-heavy PRDs should foreground functional behavior, flows, states, and acceptance evidence.
+
+All directions must stay readable, table-friendly, and handoff-oriented. Do not use fake product screenshots, phone mockups, decorative gradients, marketing hero layouts, or visual-demo patterns unless the user explicitly asks.
 
 ## Required HTML Sections
 

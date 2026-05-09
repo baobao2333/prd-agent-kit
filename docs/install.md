@@ -4,6 +4,7 @@
 
 - Codex with local skills support.
 - A workspace where you want to generate PRDs.
+- The companion `visual-taste-lab` skill installed in Codex. The PRD kit uses it to generate adaptive `design-language.md` files for HTML handoff artifacts.
 
 ## Install Skills
 
@@ -24,6 +25,17 @@ repo="$HOME/prd-agent-kit"
 codex_skills="$HOME/.codex/skills"
 cp -R "$repo"/skills/* "$codex_skills"/
 ```
+
+## Install Companion Skill
+
+Install `visual-taste-lab` in the same Codex skills directory before running the full workflow. If you keep that skill as a local folder, copy it like this:
+
+```powershell
+$codexSkills = "$env:USERPROFILE\.codex\skills"
+Copy-Item "PATH\TO\visual-taste-lab" "$codexSkills\visual-taste-lab" -Recurse -Force
+```
+
+The PRD workflow uses this companion skill only for the HTML handoff design-language pass.
 
 ## Install The Workspace Agent
 

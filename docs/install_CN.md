@@ -4,6 +4,7 @@
 
 - 你已经在本机使用 Codex，并支持本地 skills。
 - 你有一个准备用来生成 PRD 的工作区。
+- 你已经安装配套的 `visual-taste-lab` skill。PRD kit 会用它为 HTML 交付稿生成自适应的 `design-language.md`。
 
 ## 安装 Skills
 
@@ -24,6 +25,17 @@ repo="$HOME/prd-agent-kit"
 codex_skills="$HOME/.codex/skills"
 cp -R "$repo"/skills/* "$codex_skills"/
 ```
+
+## 安装配套 Skill
+
+完整流程还需要把 `visual-taste-lab` 安装到同一个 Codex skills 目录。如果你本机已有这个 skill 文件夹，可以这样复制：
+
+```powershell
+$codexSkills = "$env:USERPROFILE\.codex\skills"
+Copy-Item "PATH\TO\visual-taste-lab" "$codexSkills\visual-taste-lab" -Recurse -Force
+```
+
+PRD 工作流只在 HTML 交付稿的设计语言分析阶段使用这个配套 skill。
 
 ## 安装工作区 Agent
 

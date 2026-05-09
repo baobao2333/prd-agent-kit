@@ -29,3 +29,5 @@ If a flow, page, or acceptance stage exposes a rule gap, return to the rule mode
 ## Source Of Truth
 
 Markdown stage files are the source of truth. The HTML artifact is a handoff and presentation layer.
+
+When producing the HTML artifact, reuse an existing `design-language.md` unless the user asks for a refresh. If it does not exist, use `visual-taste-lab` to infer a design language from the PRD content and proceed without asking for style confirmation.
